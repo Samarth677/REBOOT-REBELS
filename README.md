@@ -1,6 +1,6 @@
 # REBOOT-REBELS
 
-                                                                             Payroll Managment
+                                                                     Payroll Managment
  
 ![image](https://user-images.githubusercontent.com/80661268/124381804-09cbc180-dce2-11eb-840b-acaa018df62b.png)
 

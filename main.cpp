@@ -1,10 +1,4 @@
-//**********************************************************
-// 	PROJECT PAYROLL
-//**********************************************************
-
-//**********************************************************
 //	INCLUDED HEADER FILES
-//**********************************************************
 
 #include <iostream.h>
 #include <fstream.h>
@@ -16,25 +10,15 @@
 #include <conio.h>
 #include <dos.h>
 
-
-//**********************************************************
-// THIS CLASS CONTAINS ALL THE DRAWING FUNCTIONS
-//**********************************************************
-
 class LINES
 {
 	public :
-			void LINE_HOR(int, int, int, char) ;
-			void LINE_VER(int, int, int, char) ;
-			void BOX(int,int,int,int,char) ;
-			void CLEARUP(void) ;
-			void CLEARDOWN(void) ;
+			
+			void CLEARUP(void) ;//function to remove output from up to down when exit the code
+			void CLEARDOWN(void) ;//function to remove output from down to up when exit the code
 } ;
 
-
-//**********************************************************
 // THIS CLASS CONTROL ALL THE FUNCTIONS IN THE MENU
-//**********************************************************
 
 class MENU
 {
@@ -45,61 +29,55 @@ class MENU
 			void INTRODUCTION(void) ;
 } ;
 
-
-//**********************************************************
 // THIS CLASS CONTROL ALL THE FUNCTIONS RELATED TO EMPLOYEE
-//**********************************************************
 
 class EMPLOYEE
 {
 	public :
-			void NEW_EMPLOYEE(void) ;
-			void MODIFICATION(void) ;
-			void DELETION(void) ;
-			void DISPLAY(void) ;
-			void LIST(void) ;
-			void SALARY_SLIP(void) ;
+			void NEW_EMPLOYEE(void) ;    //to enter the info of new employee
+			void MODIFICATION(void) ;    //to modify the info 
+			void DELETION(void) ;        //delete any record
+			void DISPLAY(void) ;         //to display 
+			void LIST(void) ;            //to print the list
+			void SALARY_SLIP(void) ;     //to print the salary slip
 	private :
 			void ADD_RECORD(int, char[], char[], char[], int, int, int, char[], char, char, char, float, float) ;
 			void MODIFY_RECORD(int, char [], char [], char [], char [], char, char, char, float, float) ;
 			void DELETE_RECORD(int) ;
-			int  LASTCODE(void) ;
-			int  CODEFOUND(int) ;
+			int  LASTCODE(void) ;        //will show the code of the last employee
+			int  CODEFOUND(int) ;       
 			int  RECORDNO(int) ;
 			int  FOUND_CODE(int) ;
 			void DISPLAY_RECORD(int) ;
 			int  VALID_DATE(int, int, int) ;
 
-			int   code, dd, mm, yy ;
-			char  name[26], address[31], phone[11], desig[16] ;
-			char  grade, house, convense ;
-			float loan, basic ;
+			int   code, dd, mm, yy ;               //entering the code, date
+			char  name[26], address[31], phone[11], desig[16] ;     //entering the personal info of employee
+   			char  grade, house, convense ;
+			float loan, basic ;                //entering the loan and personal salary
 } ;
 
 
-//**********************************************************
-// THIS FUNCTION CONTROL ALL THE FUNCTIONS IN THE MAIN MENU
-//**********************************************************
 
-void MENU :: MAIN_MENU(void)
+// THIS FUNCTION CONTROL ALL THE FUNCTIONS IN THE MAIN MENU
+
+
+void MENU :: MAIN_MENU(void)     // this entire function will print the main menu 
 {
 	char ch ;
 	LINES L ;
 	L.CLEARUP() ;
-	while (1)
+	while (1)              
 	{
 		clrscr() ;
-		gotoxy(14,3);
-		cout<<"     C++ Project for Payroll Management System";
-		L.BOX(25,7,57,9,218) ;
-		L.BOX(10,5,71,21,218) ;
-		L.BOX(11,6,70,20,219) ;
+		gotoxy(14,3);                     //will move cursor to 14, 3 coordinates
+		cout<<"     Hack the Terminal  Project for Payroll Management System";
 		gotoxy(29,8) ;
-		cout <<"PAYROLL MANAGEMENT SYSTEM" ;
+		cout <<"WORKPLACE MANAGEMENT SYSTEM" ; 
 		gotoxy(30,11) ;
-		cout <<"1: NEW EMPLOYEE" ;
+		cout <<"1:  ENTER INFO OF NEW EMPLOYEE" ;
 		gotoxy(30,12) ;
-		cout <<"2: DISPLAY EMPLOYEE" ;
+		cout <<"2: DISPLAY EMPLOYEE INFO" ;
 		gotoxy(30,13) ;
 		cout <<"3: LIST OF EMPLOYEES" ;
 		gotoxy(30,14) ;
@@ -113,7 +91,7 @@ void MENU :: MAIN_MENU(void)
 
 
 		ch = getch() ;
-		if (ch == 27 || ch == '0')
+		if (ch == 27 || ch == '0')        //if any key is pressed or zero then program will terminate
 			break ;
 		else
 		if (ch == '1')
@@ -125,7 +103,7 @@ void MENU :: MAIN_MENU(void)
 		if (ch == '2')
 		{
 			EMPLOYEE E ;
-			E.DISPLAY() ;
+			E.DISPLAY() ;     // display the info of the employee
 		}
 		else
 		if (ch == '3')
@@ -141,15 +119,15 @@ void MENU :: MAIN_MENU(void)
 		}
 		else
 		if (ch == '5')
-			EDIT_MENU() ;
+			EDIT_MENU() ;         // edit the info of the employee
 	}
 	L.CLEARUP() ;
 }
 
 
-//**********************************************************
+
 // THIS FUNCTION CONTROL ALL THE FUNCTIONS IN THE EDIT MENU
-//**********************************************************
+
 
 void MENU :: EDIT_MENU(void)
 {
@@ -159,15 +137,12 @@ void MENU :: EDIT_MENU(void)
 	while (1)
 	{
 		clrscr() ;
-		L.BOX(28,8,49,10,218) ;
-		L.BOX(10,5,71,21,218) ;
-		L.BOX(11,6,70,20,219) ;
 		gotoxy(31,9) ;
-		cout <<"E D I T  M E N U" ;
+		cout <<"EDIT  MENU" ;
 		gotoxy(30,13) ;
-		cout <<"1: DELETE RECORD" ;
+		cout <<"1: DELETE EMPLOYEE RECORD" ;
 		gotoxy(30,14) ;
-		cout <<"2: MODIFY RECORD" ;
+		cout <<"2: MODIFY EMPLOYEE  RECORD" ;
 		gotoxy(30,15) ;
 		cout <<"0: EXIT" ;
 		gotoxy(30,17) ;
@@ -192,85 +167,7 @@ void MENU :: EDIT_MENU(void)
 }
 
 
-//**********************************************************
-// THIS FUNCTION DRAWS THE HORRIZONTAL LINE
-//**********************************************************
-
-void LINES :: LINE_HOR(int column1, int column2, int row, char c)
-{
-	for ( column1; column1<=column2; column1++ )
-	{
-		gotoxy(column1,row) ;
-		cout <<c ;
-	}
-}
-
-
-//**********************************************************
-// THIS FUNCTION DRAWS THE VERTICAL LINE
-//**********************************************************
-
-void LINES :: LINE_VER(int row1, int row2, int column, char c)
-{
-	for ( row1; row1<=row2; row1++ )
-	{
-		gotoxy(column,row1) ;
-		cout <<c ;
-	}
-}
-
-
-//**********************************************************
-// THIS FUNCTION DRAWS THE BOX
-//**********************************************************
-
-void LINES :: BOX(int column1, int row1, int column2, int row2, char c)
-{
-	char ch=218 ;
-	char c1, c2, c3, c4 ;
-	char l1=196, l2=179 ;
-	if (c == ch)
-	{
-		c1=218 ;
-		c2=191 ;
-		c3=192 ;
-		c4=217 ;
-		l1 = 196 ;
-		l2 = 179 ;
-	}
-	else
-	{
-		c1=c ;
-		c2=c ;
-		c3=c ;
-		c4=c ;
-		l1 = c ;
-		l2 = c ;
-	}
-	gotoxy(column1,row1) ;
-	cout <<c1 ;
-	gotoxy(column2,row1) ;
-	cout <<c2 ;
-	gotoxy(column1,row2) ;
-	cout <<c3 ;
-	gotoxy(column2,row2) ;
-	cout <<c4 ;
-	column1++ ;
-	column2-- ;
-	LINE_HOR(column1,column2,row1,l1) ;
-	LINE_HOR(column1,column2,row2,l1) ;
-	column1-- ;
-	column2++ ;
-	row1++ ;
-	row2-- ;
-	LINE_VER(row1,row2,column1,l2) ;
-	LINE_VER(row1,row2,column2,l2) ;
-}
-
-
-//**********************************************************
 // THIS FUNCTION CLEAR THE SCREEN LINE BY LINE UPWARD
-//**********************************************************
 
 void LINES :: CLEARUP(void)
 {
@@ -282,9 +179,8 @@ void LINES :: CLEARUP(void)
 }
 
 
-//**********************************************************
+
 // THIS FUNCTION CLEAR THE SCREEN LINE BY LINE DOWNWORD
-//**********************************************************
 
 void LINES :: CLEARDOWN(void)
 {
@@ -296,9 +192,8 @@ void LINES :: CLEARDOWN(void)
 }
 
 
-//**********************************************************
+
 // THIS FUNCTION ADDS THE GIVEN DATA IN THE EMPLOYEE'S FILE
-//**********************************************************
 
 void EMPLOYEE :: ADD_RECORD(int ecode, char ename[26], char eaddress[31], char ephone[11], int d, int m, int y, char edesig[16], char egrade, char ehouse, char econv, float eloan, float ebasic)
 {
@@ -322,17 +217,16 @@ void EMPLOYEE :: ADD_RECORD(int ecode, char ename[26], char eaddress[31], char e
 }
 
 
-//**********************************************************
+
 // THIS FUNCTION MODIFY THE GIVEN DATA IN THE
 // EMPLOYEE'S FILE
-//**********************************************************
 
 void EMPLOYEE :: MODIFY_RECORD(int ecode, char ename[26], char eaddress[31], char ephone[11], char edesig[16], char egrade, char ehouse, char econv, float eloan, float ebasic)
 {
 	int recno ;
 	recno = RECORDNO(ecode) ;
 	fstream file ;
-	file.open("EMPLOYEE.DAT", ios::out | ios::ate) ;
+	file.open("EMPLOYEE.DAT", ios::out | ios::ate) ;          //file opened in read and write mode
 	strcpy(name,ename) ;
 	strcpy(address,eaddress) ;
 	strcpy(phone,ephone) ;
@@ -343,31 +237,29 @@ void EMPLOYEE :: MODIFY_RECORD(int ecode, char ename[26], char eaddress[31], cha
 	loan = eloan ;
 	basic = ebasic ;
 	int location ;
-	location = (recno-1) * sizeof(EMPLOYEE) ;
+	location = (recno-1) * sizeof(EMPLOYEE) ;            //this will help us to move the cursor to the starting of the record that need to be modified
 	file.seekp(location) ;
-	file.write((char *) this, sizeof(EMPLOYEE)) ;
-	file.close() ;
+	file.write((char *) this, sizeof(EMPLOYEE)) ;        // help us to modify the record by writing in the file
+	file.close() ;                                        // close the file
 }
 
-
-//**********************************************************
 // THIS FUNCTION DELETE THE RECORD IN THE EMPLOYEE FILE
 // FOR THE GIVEN EMPLOYEE CODE
-//**********************************************************
+
 
 void EMPLOYEE :: DELETE_RECORD(int ecode)
 {
 	fstream file ;
-	file.open("EMPLOYEE.DAT", ios::in) ;
+	file.open("EMPLOYEE.DAT", ios::in) ;                 //opening file in reading mode
 	fstream temp ;
-	temp.open("temp.dat", ios::out) ;
+	temp.open("temp.dat", ios::out) ;                    //opening the temp file in the writting
 	file.seekg(0,ios::beg) ;
 	while (!file.eof())
 	{
 		file.read((char *) this, sizeof(EMPLOYEE)) ;
-		if (file.eof())
+		if (file.eof())                               //if file reach the end then loop will terminate
 			break ;
-		if (code != ecode)
+		if (code != ecode)                            //if entered code not mached then it will move forward with the size of the class
 			temp.write((char *) this, sizeof(EMPLOYEE)) ;
 	}
 	file.close() ;
@@ -386,11 +278,7 @@ void EMPLOYEE :: DELETE_RECORD(int ecode)
 	temp.close() ;
 }
 
-
-//**********************************************************
 // THIS FUNCTION RETURNS THE LAST EMPLOYEE'S CODE
-//**********************************************************
-
 int EMPLOYEE :: LASTCODE(void)
 {
 	fstream file ;
@@ -403,10 +291,7 @@ int EMPLOYEE :: LASTCODE(void)
 	return count ;
 }
 
-
-//**********************************************************
 // THIS FUNCTION RETURNS 0 IF THE GIVEN CODE NOT FOUND
-//**********************************************************
 
 int EMPLOYEE :: FOUND_CODE(int ecode)
 {
@@ -427,10 +312,8 @@ int EMPLOYEE :: FOUND_CODE(int ecode)
 }
 
 
-//**********************************************************
-// THIS FUNCTION RETURNS RECORD NO. OF THE GIVEN CODE
-//**********************************************************
 
+// THIS FUNCTION RETURNS RECORD NO. OF THE GIVEN CODE
 int EMPLOYEE :: RECORDNO(int ecode)
 {
 	fstream file ;
@@ -448,23 +331,22 @@ int EMPLOYEE :: RECORDNO(int ecode)
 }
 
 
-//**********************************************************
+
 // THIS FUNCTION DISPLAYS THE LIST OF THE EMPLOYEES
-//**********************************************************
 
 void EMPLOYEE :: LIST(void)
-{
+{                                                  //data will be shown in tabular form
 	clrscr() ;
 	int row = 6 , found=0, flag=0 ;
 	char ch ;
 	gotoxy(31,2) ;
 	cout <<"LIST OF EMPLOYEES" ;
 	gotoxy(30,3) ;
-	cout <<"~~~~~~~~~~~~~~~~~~~" ;
+	cout <<"-------------------" ;
 	gotoxy(1,4) ;
 	cout <<"CODE NAME                     PHONE    DOJ         DESIGNATION    GRADE  SALARY" ;
 	gotoxy(1,5) ;
-	cout <<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" ;
+	cout <<"-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-." ;
 	fstream file ;
 	file.open("EMPLOYEE.DAT", ios::in) ;
 	file.seekg(0,ios::beg) ;
@@ -508,11 +390,11 @@ void EMPLOYEE :: LIST(void)
 			gotoxy(31,2) ;
 			cout <<"LIST OF EMPLOYEES" ;
 			gotoxy(30,3) ;
-			cout <<"~~~~~~~~~~~~~~~~~~~" ;
+			cout <<"-------------------" ;
 			gotoxy(1,4) ;
 			cout <<"CODE NAME                   PHONE    DOJ         DESIGNATION    GRADE  SALARY" ;
 			gotoxy(1,5) ;
-			cout <<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" ;
+			cout <<"-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-" ;
 		}
 		else
 			row++ ;
@@ -520,7 +402,7 @@ void EMPLOYEE :: LIST(void)
 	if (!found)
 	{
 		gotoxy(5,10) ;
-		cout <<"\7Records not found" ;
+		cout <<"\7Records not found  please enter the valid EMPLOYEE NUMBER" ;
 	}
 	if (!flag)
 	{
@@ -532,9 +414,9 @@ void EMPLOYEE :: LIST(void)
 }
 
 
-//**********************************************************
+
 // THIS FUNCTION DISPLAYS THE RECORD OF THE EMPLOYEES
-//**********************************************************
+
 
 void EMPLOYEE :: DISPLAY_RECORD(int ecode)
 {
@@ -546,7 +428,7 @@ void EMPLOYEE :: DISPLAY_RECORD(int ecode)
 		if (code == ecode)
 		{
 			gotoxy(5,5) ;
-			cout <<"Employee Code # " <<code ;
+			cout <<"Employee Code :- " <<code ;
 			gotoxy(5,6) ;
 			cout <<"~~~~~~~~~~~~~" ;
 			gotoxy(5,7) ;
@@ -628,7 +510,7 @@ void EMPLOYEE :: NEW_EMPLOYEE(void)
 	gotoxy(5,21) ;
 	cout <<"Loan           : " ;
 
-	ecode = LASTCODE() + 1 ;
+	ecode = LASTCODE() + 1 ;             // updating the value of the code in serial order
 	if (ecode == 1)
 	{
 		ADD_RECORD(ecode, "null", "null", "null", 0, 0, 0, "null", 'n', 'n', 'n', 0.0, 0.0) ;
@@ -646,7 +528,7 @@ void EMPLOYEE :: NEW_EMPLOYEE(void)
 		strupr(ename) ;
 		if (ename[0] == '0')
 			return ;
-		if (strlen(ename) < 1 || strlen(ename) > 25)
+		if (strlen(ename) < 1 || strlen(ename) > 25)      // if name is bigger then the required lenght then it is invalid
 		{
 			valid = 0 ;
 			gotoxy(5,25) ; clreol() ;
@@ -661,13 +543,13 @@ void EMPLOYEE :: NEW_EMPLOYEE(void)
 		cout <<"Enter Address of the Employee" ;
 		gotoxy(20,8) ; clreol() ;
 		gets(eaddress) ;
-		strupr(eaddress) ;
+		strupr(eaddress) ;      //convert the string in upper character
 		if (eaddress[0] == '0')
 			return ;
 		if (strlen(eaddress) < 1 || strlen(eaddress) > 30)
 		{
 			valid = 0 ;
-			gotoxy(5,25) ; clreol() ;
+			gotoxy(5,25) ; clreol() ;          //clreol() used to clear line from current cursor position to end of line
 			cout <<"\7Enter correctly (Range: 1..30)" ;
 			getch() ;
 		}
@@ -681,7 +563,7 @@ void EMPLOYEE :: NEW_EMPLOYEE(void)
 		gets(ephone) ;
 		if (ephone[0] == '0')
 			return ;
-		if ((strlen(ephone) < 10 && strlen(ephone) > 0) || (strlen(ephone) > 10))
+		if ((strlen(ephone) < 10 && strlen(ephone) > 0) || (strlen(ephone) > 10))     //if lenght of phone number greater then 10 or less then 10 then invalid
 		{
 			valid = 0 ;
 			gotoxy(5,25) ; clreol() ;
@@ -689,7 +571,7 @@ void EMPLOYEE :: NEW_EMPLOYEE(void)
 			getch() ;
 		}
 	} while (!valid) ;
-	if (strlen(ephone) == 0)
+	if (strlen(ephone) == 0)                  //if phone number is zero then blank as no official phone number
 		strcpy(ephone,"-") ;
 	char tday[3], tmonth[3], tyear[5] ;
 	int td ;
@@ -702,7 +584,7 @@ void EMPLOYEE :: NEW_EMPLOYEE(void)
 			cout <<"ENTER DAY OF JOINING" ;
 			gotoxy(13,13) ; clreol() ;
 			gets(tday) ;
-			td = atoi(tday) ;
+			td = atoi(tday) ;                    //atoi() function take sstring as argument and return it as int
 			d = td ;
 			if (tday[0] == '0')
 				return ;
@@ -732,7 +614,7 @@ void EMPLOYEE :: NEW_EMPLOYEE(void)
 		if (d>31 || d<1)
 			valid = 0 ;
 		else
-		if (((y%4)!=0 && m==2 && d>28) || ((y%4)==0 && m==2 && d>29))
+		if (((y%4)!=0 && m==2 && d>28) || ((y%4)==0 && m==2 && d>29))       // special case for february and leap year
 			valid = 0 ;
 		else
 		if ((m==4 || m==6 || m==9 || m==11) && d>30)
@@ -884,7 +766,7 @@ void EMPLOYEE :: DISPLAY(void)
 	if (!FOUND_CODE(ecode))
 	{
 		gotoxy(5,5) ;
-		cout <<"\7Record not found" ;
+		cout <<"\7Record not found plz enter the valid EMPLOYEE CODE" ;
 		getch() ;
 		return ;
 	}
@@ -895,10 +777,8 @@ void EMPLOYEE :: DISPLAY(void)
 }
 
 
-//**********************************************************
 // THIS FUNCTION GIVE DATA FOR THE MODIFICATION OF THE
 // EMPLOYEE RECORD
-//**********************************************************
 
 void EMPLOYEE :: MODIFICATION(void)
 {
@@ -953,11 +833,11 @@ void EMPLOYEE :: MODIFICATION(void)
 	gotoxy(5,5) ;
 	cout <<"Employee Code # " <<ecode ;
 	gotoxy(5,6) ;
-	cout <<"~~~~~~~~~~~~~" ;
+	cout <<"-------------" ;
 	gotoxy(40,5) ;
 	cout <<"JOINING DATE : " ;
 	gotoxy(40,6) ;
-	cout <<"~~~~~~~~~~~~~~" ;
+	cout <<"----------------" ;
 	gotoxy(55,5) ;
 	cout <<dd <<"/" <<mm <<"/" <<yy ;
 	gotoxy(5,7) ;
@@ -1189,17 +1069,17 @@ void EMPLOYEE :: MODIFICATION(void)
 		return ;
 	MODIFY_RECORD(ecode,ename,eaddress,ephone,edesig,egrade,ehouse,econv,eloan,ebasic) ;
 	gotoxy(5,23) ;
-	cout <<"\7Record Modified" ;
+	cout <<"\7Record Modified Successfully" ;
 	gotoxy(5,25) ;
 	cout <<"Press any key to continue..." ;
 	getch() ;
 }
 
 
-//**********************************************************
+
 // THIS FUNCTION GIVE CODE NO. FOR THE DELETION OF THE
 // EMPLOYEE RECORD
-//**********************************************************
+
 
 void EMPLOYEE :: DELETION(void)
 {
@@ -1250,9 +1130,9 @@ void EMPLOYEE :: DELETION(void)
 }
 
 
-//**********************************************************
+
 // THIS FUNCTION RETURN 0 IF THE GIVEN DATE IS INVALID
-//**********************************************************
+
 
 int EMPLOYEE :: VALID_DATE(int d1, int m1, int y1)
 {
@@ -1269,9 +1149,9 @@ int EMPLOYEE :: VALID_DATE(int d1, int m1, int y1)
 }
 
 
-//**********************************************************
+
 // THIS FUNCTION PRINTS THE SALARY SLIP FOR THE EMPLOYEE
-//**********************************************************
+
 
 void EMPLOYEE :: SALARY_SLIP(void)
 {
@@ -1281,7 +1161,7 @@ void EMPLOYEE :: SALARY_SLIP(void)
 	gotoxy(72,2) ;
 	cout <<"<0>=EXIT" ;
 	gotoxy(5,5) ;
-	cout <<"Enter code of the Employee  " ;
+	cout <<"Enter Employee code  " ;
 	gets(t1) ;
 	t2 = atoi(t1) ;
 	ecode = t2 ;
@@ -1312,25 +1192,25 @@ void EMPLOYEE :: SALARY_SLIP(void)
 	y1 = d.da_year ;
 	char *mon[12]={"January","February","March","April","May","June","July","August","September","November","December"} ;
 	LINES L ;
-	L.BOX(2,1,79,25,219) ;
+	
 	gotoxy(31,2) ;
 	cout <<"PAYROLL MANAGEMENT" ;
-	L.LINE_HOR(3,78,3,196) ;
+	;
 	gotoxy(34,4) ;
 	cout <<"SALARY SLIP" ;
 	gotoxy(60,4) ;
 	cout <<"Date: " <<d1 <<"/" <<m1 <<"/" <<y1 ;
 	gotoxy(34,5) ;
 	cout <<mon[m1-1] <<", " <<y1 ;
-	L.LINE_HOR(3,78,6,196) ;
+	
 	gotoxy(6,7) ;
 	cout <<"Employee Name : " <<name ;
 	gotoxy(6,8) ;
 	cout <<"Designation   : " <<desig ;
 	gotoxy(67,8) ;
 	cout <<"Grade : " <<grade ;
-	L.BOX(6,9,75,22,218) ;
-	L.LINE_HOR(10,71,20,196) ;
+	
+	
 	int days, hours ;
 	if (grade == 'E')
 	{
@@ -1422,7 +1302,7 @@ void EMPLOYEE :: SALARY_SLIP(void)
 		if (convense == 'Y')
 			CA  = (2*basic)/100 ;
 		DA  = (5*basic)/100 ;
-		PF  = (2*basic)/100 ;
+		PF  = (2*basic)/100 ;        //PF calculated at the rate of 2 percent
 		LD  = (15*loan)/100 ;
 		allowance = HRA+CA+DA ;
 		deduction = PF+LD ;
@@ -1430,7 +1310,7 @@ void EMPLOYEE :: SALARY_SLIP(void)
 	else
 	{
 		basic = days * 30 ;
-		LD  = (15*loan)/100 ;
+		LD  = (15*loan)/100 ;     //LD calculate dat the rate of 15 percent
 		OT  = hours * 10 ;
 		allowance = OT ;
 		deduction = LD ;
@@ -1467,12 +1347,15 @@ void EMPLOYEE :: SALARY_SLIP(void)
 }
 
 
-//**********************************************************
 // MAIN FUNCTION CALLING MAIN MENU
-//**********************************************************
+
 
 void main(void)
 {
 	MENU menu ;
 	menu.MAIN_MENU() ;
+        system("COLOR [A]");
 }
+
+
+
